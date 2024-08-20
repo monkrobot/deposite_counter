@@ -1,16 +1,17 @@
+from decimal import Decimal
 from fastapi import FastAPI
 
 import uvicorn
 
 from math_solution import deposite_counter
-from schemas import MonthDeposite, QuerySchema
+from schemas import QuerySchema
 
 
 app = FastAPI()
 
 
 @app.post('/')
-async def get_deposite(query: QuerySchema) -> list[MonthDeposite]:
+async def get_deposite(query: QuerySchema) -> dict[str, Decimal]:
     return deposite_counter(query)
 
 

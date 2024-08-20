@@ -12,10 +12,6 @@ def parse_date(value: str):
     ).date()
 
 
-def str_date_encoder(value: date):
-    return value.strftime("%d.%m.%Y")
-
-
 class QuerySchema(BaseModel):
     date: Annotated[date, BeforeValidator(parse_date)]
     periods: Annotated[int, Field(ge=1, le=60)]
@@ -34,13 +30,3 @@ class QuerySchema(BaseModel):
             ]
         }
     }
-
-
-class MonthDeposite(BaseModel):
-    date: date
-    amount: Decimal
-
-    class Config:
-        json_encoders = {
-            date: str_date_encoder
-        }

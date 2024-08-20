@@ -1,11 +1,11 @@
 from decimal import Decimal
 from dateutil.relativedelta import relativedelta
 
-from schemas import MonthDeposite, QuerySchema
+from schemas import QuerySchema
 
 
-def deposite_counter(query: QuerySchema) -> list[MonthDeposite]:
-    result = list()
+def deposite_counter(query: QuerySchema) -> dict[str, Decimal]:
+    result = dict()
     last_month_amount = query.amount
     last_date = query.date
 
@@ -17,18 +17,15 @@ def deposite_counter(query: QuerySchema) -> list[MonthDeposite]:
             
         last_month_amount = last_month_amount * (1 + query.rate / 12 / 100)
         deposite_amount = Decimal(str(last_month_amount)).quantize(Decimal("1.00"))
-        deposite = MonthDeposite(date=deposite_date, amount=deposite_amount)
-        result.append(deposite)
+        result[deposite_date.strftime("%d.%m.%Y")] = deposite_amount
 
-    print('\n'.join([str(i) for i in result]))
-    print(result)
     return result
 
 if __name__ == "__main__":
     amount = 10000
     periods = 7
     rate = 6.0
-    date = "29.01.2021"
+    date = "31.01.2021"
 
     query = QuerySchema(date=date, rate=rate, periods=periods, amount=amount)
 
