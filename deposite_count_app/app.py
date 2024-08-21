@@ -1,6 +1,6 @@
 from decimal import Decimal
-from fastapi import FastAPI
 
+from fastapi import FastAPI
 import uvicorn
 
 from math_solution import deposite_counter
