@@ -1,12 +1,12 @@
 FROM python:3.11
 
-RUN mkdir /deposite_count_app
-
-WORKDIR /deposite_count_app
-
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
+
+RUN mkdir /deposite_count_app
+
+WORKDIR /deposite_count_app
 
 COPY deposite_count_app .
 
