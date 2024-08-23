@@ -18,15 +18,17 @@ app = FastAPI()
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     for error in exc.errors():
-        error.pop('type')
-        error.pop('input')
-        error.pop('ctx')
-        error['error'] = f"{error.pop('loc')[1]}: {error.pop('msg')}"
-    
-    return JSONResponse(content=jsonable_encoder({"detail": exc.errors()}), status_code=status.HTTP_400_BAD_REQUEST)
+        error.pop("type")
+        error.pop("input")
+        error.pop("ctx")
+        error["error"] = f"{error.pop('loc')[1]}: {error.pop('msg')}"
+
+    return JSONResponse(
+        content=jsonable_encoder({"detail": exc.errors()}), status_code=status.HTTP_400_BAD_REQUEST
+    )
 
 
-@app.post('/')
+@app.post("/")
 async def get_deposite(query: QuerySchema) -> dict[str, Decimal]:
     return deposite_counter(query)
 

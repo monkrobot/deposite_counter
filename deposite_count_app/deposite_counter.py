@@ -14,12 +14,13 @@ def deposite_counter(query: QuerySchema) -> dict[str, Decimal]:
             deposite_date = last_date
         else:
             deposite_date = last_date + relativedelta(months=period_item - 1)
-            
+
         last_month_amount = last_month_amount * (1 + query.rate / 12 / 100)
         deposite_amount = Decimal(str(last_month_amount)).quantize(Decimal("1.00"))
         result[deposite_date.strftime("%d.%m.%Y")] = deposite_amount
 
     return result
+
 
 if __name__ == "__main__":
     amount = 10000

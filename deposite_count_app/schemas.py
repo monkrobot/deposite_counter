@@ -6,10 +6,7 @@ from pydantic.functional_validators import BeforeValidator
 
 
 def parse_date(value: str):
-    return datetime.strptime(
-        value,
-        "%d.%m.%Y"
-    ).date()
+    return datetime.strptime(value, "%d.%m.%Y").date()
 
 
 class QuerySchema(BaseModel):
