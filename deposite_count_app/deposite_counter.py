@@ -29,4 +29,4 @@ if __name__ == "__main__":
 
     query = QuerySchema(date=date, rate=rate, periods=periods, amount=amount)
 
-    deposite_counter(query)
+    print(deposite_counter(query))
